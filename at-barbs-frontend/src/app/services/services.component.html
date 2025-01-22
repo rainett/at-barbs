@@ -1,0 +1,45 @@
+<div class="space-y-6 mx-auto max-w-4xl">
+    <!-- Service List -->
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <!-- Service Card -->
+        <div *ngFor="let service of services" hlmCard class="flex flex-col justify-between">
+            <!-- Card Header -->
+            <div hlmCardHeader>
+                <h2 hlmCardTitle>{{ service.name }}</h2>
+                <p hlmCardDescription>{{ service.description }}</p>
+            </div>
+            <!-- Card Content -->
+            <div hlmCardContent class="flex-grow">
+                <p>Duration: {{ service.durationMinutes }} mins</p>
+                <p>Price: ${{ service.price }}</p>
+            </div>
+            <!-- Card Footer -->
+            <div hlmCardFooter>
+                <button hlmBtn
+                        (click)="handleServiceSelection(service)"
+                        class="w-full">
+                    Select and Continue
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="flex justify-center items-center space-x-4 mt-6">
+        <button
+                hlmBtn
+                variant="outline"
+                (click)="goToPage(currentPage - 1)"
+                [disabled]="currentPage === 0">
+            Previous
+        </button>
+        <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+        <button
+                hlmBtn
+                variant="outline"
+                (click)="goToPage(currentPage + 1)"
+                [disabled]="currentPage + 1 >= totalPages">
+            Next
+        </button>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<header class="flex justify-between w-full h-20 shadow-md bg-background">
+    <div routerLink="" class="hover:cursor-pointer mx-1 sm:mx-4 flex items-center">
+        <img class="h-8 sm:h-12 mx-3" src="{{logoSrc}}" alt="Logo"/>
+        <h1 class="font-semibold sm:text-xl text-lg">{{ pageTitle }}</h1>
+    </div>
+    <div class="mx-1 sm:mx-4 flex items-center gap-2">
+        <button routerLink="services" variant="link" hlmBtn>Services</button>
+        <button hlmBtn *ngIf="!isLoggedIn()" routerLink="login">Log In</button>
+        <button hlmBtn *ngIf="isLoggedIn()" routerLink="my-appointments" variant="link">Appointments</button>
+        <button hlmBtn *ngIf="isLoggedIn()" routerLink="me">My Account</button>
+    </div>
+</header>

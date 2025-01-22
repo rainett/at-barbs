@@ -1,0 +1,81 @@
+<div class="space-y-6 mx-auto">
+    <!-- Button Group -->
+    <div class="flex justify-center space-x-4">
+        <button hlmBtn routerLink="/login">
+            Log In
+        </button>
+        <button hlmBtn disabled>
+            Sign Up
+        </button>
+    </div>
+
+    <!-- Registration Form -->
+    <form hlmCard class="mx-auto w-full max-w-sm p-6 shadow-lg"
+          (ngSubmit)="onSubmitRegistration()"
+          #registrationForm="ngForm">
+        <div class="space-y-4">
+            <!-- First Name Input -->
+            <div>
+                <label hlmLabel>
+                    First Name
+                    <input hlmInput
+                           class="w-full"
+                           type="text"
+                           id="firstName"
+                           name="firstName"
+                           placeholder="First Name"
+                           [(ngModel)]="firstName"/>
+                </label>
+            </div>
+
+            <!-- Last Name Input -->
+            <div>
+                <label hlmLabel>
+                    Last Name
+                    <input hlmInput
+                           class="w-full"
+                           type="text"
+                           id="lastName"
+                           name="lastName"
+                           placeholder="Last Name"
+                           [(ngModel)]="lastName"/>
+                </label>
+            </div>
+
+            <!-- Email Input -->
+            <div>
+                <label hlmLabel>
+                    E-Mail
+                    <input hlmInput
+                           class="w-full"
+                           type="email"
+                           id="email"
+                           name="email"
+                           placeholder="E-Mail"
+                           [(ngModel)]="email"/>
+                </label>
+            </div>
+
+            <!-- Password Input -->
+            <div>
+                <label hlmLabel>
+                    Password
+                    <input hlmInput
+                           class="w-full"
+                           type="password"
+                           id="loginPassword"
+                           name="password"
+                           placeholder="Password"
+                           [(ngModel)]="password"/>
+                </label>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex justify-center">
+                <button hlmBtn type="submit" class="w-full">
+                    Sign Up
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

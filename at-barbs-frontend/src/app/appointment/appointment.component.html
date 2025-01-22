@@ -1,0 +1,58 @@
+<div class="space-y-6 mx-auto max-w-4xl">
+    <!-- Header -->
+    <div hlmCard class="p-6">
+        <h2 hlmCardTitle>Appointment View</h2>
+        <p hlmCardDescription>
+            Here you can review the appointment and update it if needed.
+        </p>
+    </div>
+
+    <!-- Details Section: Service and Staff -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Service Details Card -->
+        <div hlmCard>
+            <div hlmCardHeader>
+                <h3 hlmCardTitle>Service Details</h3>
+                <p hlmCardDescription>Here are the details of the service you selected</p>
+            </div>
+            <div hlmCardContent>
+                <p>Service: {{ service?.name }}</p>
+                <p>Description: {{ service?.description }}</p>
+                <p>Duration: {{ service?.durationMinutes }} minutes</p>
+                <p>Price: ${{ service?.price }}</p>
+            </div>
+        </div>
+
+        <!-- Staff Details Card -->
+        <div hlmCard>
+            <div hlmCardHeader>
+                <h3 hlmCardTitle>Staff Details</h3>
+                <p hlmCardDescription>Here are the details of the staff member you selected</p>
+            </div>
+            <div hlmCardContent>
+                <p>Name: {{ staff?.firstName }} {{ staff?.lastName }}</p>
+                <p>Specialization: {{ staff?.specialization }}</p>
+                <p>Email: {{ staff?.email }}</p>
+                <p>Working Hours: {{ staff?.startTime }} - {{ staff?.endTime }}</p>
+            </div>
+        </div>
+
+        <!-- Appointment Details Card -->
+        <div hlmCard class="col-span-2">
+            <div hlmCardHeader>
+                <h3 hlmCardTitle>Appointment</h3>
+                <p hlmCardDescription>And this is the place where you can edit your appointment</p>
+            </div>
+            <div hlmCardContent>
+                <p>Date: {{ appointment.date }}</p>
+                <p>Time: {{ appointment.time }}</p>
+                <p>Status: {{ appointment.status }}</p>
+            </div>
+            <div hlmCardFooter *ngIf="appointment.status !== 'CANCELLED'">
+                <button hlmBtn variant="destructive" (click)="onCancelAppointment()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="space-y-6 mx-auto">
+    <!-- Button Group -->
+    <div class="flex justify-center space-x-4">
+        <button hlmBtn disabled>
+            Log In
+        </button>
+        <button hlmBtn routerLink="/registration">
+            Sign Up
+        </button>
+    </div>
+
+    <!-- Login Form -->
+    <form hlmCard class="mx-auto w-full max-w-sm p-6 shadow-lg"
+          (ngSubmit)="onSubmitLogin()"
+          #loginForm="ngForm">
+        <div class="space-y-4">
+            <!-- Username Input -->
+            <div>
+                <label hlmLabel>
+                    E-Mail
+                    <input hlmInput class="w-full"
+                           type='email'
+                           name="email"
+                           placeholder='Email'
+                           [(ngModel)]="email"/>
+                </label>
+            </div>
+
+            <!-- Password Input -->
+            <div>
+                <label hlmLabel>
+                    Password
+                    <input hlmInput class="w-full"
+                           type='password'
+                           name="password"
+                           placeholder='Password'
+                           [(ngModel)]="password"/>
+                </label>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex justify-center">
+                <button hlmBtn type="submit" class="w-full">
+                    Log In
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

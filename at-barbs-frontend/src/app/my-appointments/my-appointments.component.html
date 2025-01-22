@@ -1,0 +1,60 @@
+<div class="space-y-6 mx-auto max-w-4xl">
+    <!-- Header -->
+    <div hlmCard class="p-6">
+        <h2 hlmCardTitle>My Appointments</h2>
+        <p hlmCardDescription>
+            View and manage your scheduled appointments.
+        </p>
+    </div>
+
+    <!-- Appointments List -->
+    <div *ngIf="appointments.length > 0; else noAppointments">
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div *ngFor="let appointment of appointments" hlmCard>
+                <div hlmCardHeader>
+                    <h3 hlmCardTitle>{{ appointment.serviceName }}</h3>
+                    <p hlmCardDescription>Staff: {{ appointment.staffFirstName }} {{ appointment.staffLastName }}</p>
+                </div>
+                <div hlmCardContent>
+                    <p>Date: {{ appointment.appointmentTime.date }}</p>
+                    <p>Time: {{ appointment.appointmentTime.time }}</p>
+                    <p>Status: {{ appointment.status }}</p>
+                </div>
+                <div hlmCardFooter>
+                    <button hlmBtn [routerLink]="['/appointments', appointment.id]">
+                        View Details
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="flex justify-center items-center space-x-4 mt-6">
+            <button
+                    hlmBtn
+                    variant="outline"
+                    (click)="goToPage(currentPage - 1)"
+                    [disabled]="currentPage === 0">
+                Previous
+            </button>
+            <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+            <button
+                    hlmBtn
+                    variant="outline"
+                    (click)="goToPage(currentPage + 1)"
+                    [disabled]="currentPage + 1 >= totalPages">
+                Next
+            </button>
+        </div>
+    </div>
+
+    <!-- No Appointments -->
+    <ng-template #noAppointments>
+        <div hlmCard>
+            <div hlmCardHeader>
+                <h3 hlmCardTitle>No Appointments Found</h3>
+                <p hlmCardDescription>Looks like you don't have any scheduled appointments.</p>
+            </div>
+        </div>
+    </ng-template>
+</div>

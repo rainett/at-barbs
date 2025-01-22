@@ -1,0 +1,100 @@
+<div class="space-y-6 mx-auto max-w-4xl">
+    <!-- Header -->
+    <div hlmCard class="p-6">
+        <h2 hlmCardTitle>Confirm Your Appointment</h2>
+        <p hlmCardDescription>
+            Review the details of your appointment, select a date and time, and confirm your booking.
+        </p>
+    </div>
+
+    <!-- Details Section: Service and Staff -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Service Details Card -->
+        <div hlmCard>
+            <div hlmCardHeader>
+                <h3 hlmCardTitle>Service Details</h3>
+                <p hlmCardDescription>Here are the details of the service you selected</p>
+            </div>
+            <div hlmCardContent>
+                <p>Service: {{ selectedService?.name }}</p>
+                <p>Description: {{ selectedService?.description }}</p>
+                <p>Duration: {{ selectedService?.durationMinutes }} minutes</p>
+                <p>Price: ${{ selectedService?.price }}</p>
+            </div>
+        </div>
+
+        <!-- Staff Details Card -->
+        <div hlmCard>
+            <div hlmCardHeader>
+                <h3 hlmCardTitle>Staff Details</h3>
+                <p hlmCardDescription>Here are the details of the staff member you selected</p>
+            </div>
+            <div hlmCardContent>
+                <p>Name: {{ selectedStaff?.firstName }} {{ selectedStaff?.lastName }}</p>
+                <p>Specialization: {{ selectedStaff?.specialization }}</p>
+                <p>Email: {{ selectedStaff?.email }}</p>
+                <p>Working Hours: {{ selectedStaff?.startTime }} - {{ selectedStaff?.endTime }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Date and Time Selection -->
+    <div hlmCard>
+        <div hlmCardHeader>
+            <h3 hlmCardTitle>Select Date and Time</h3>
+            <p hlmCardDescription>Finally, select a date and time for your appointment</p>
+        </div>
+        <div hlmCardContent class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Calendar and Check Button -->
+            <div class="w-fit flex flex-col gap-6 items-center">
+                <hlm-calendar [(date)]="selectedDate"
+                              [min]="minDate"
+                              [max]="maxDate">
+                </hlm-calendar>
+                <button hlmBtn variant="outline" (click)="checkTime()">
+                    Check Time
+                </button>
+            </div>
+
+            <!-- Available Time Slots -->
+            <div>
+                <h4 class="font-medium" *ngIf="!isTimeChecked">
+                    Please click "Check Time" to see available slots.
+                </h4>
+                <div *ngIf="isTimeChecked">
+                    <div hlmAlert *ngIf="availableTimeSlots.length === 0">
+                        <h4 hlmAlertTitle>Nothing for that day!</h4>
+                        <p hlmAlertDesc>
+                            There are no available time slots for the selected date.
+                            Please select another date.
+                        </p>
+                    </div>
+                    <div *ngIf="availableTimeSlots.length > 0">
+                        <h4 class="font-medium">Available Time Slots:</h4>
+                        <div class="grid gap-4 grid-cols-2 p-3 md:grid-cols-4">
+                            <button
+                                    *ngFor="let slot of availableTimeSlots"
+                                    hlmBtn
+                                    [variant]="slot === selectedTimeSlot ? 'default' : 'outline'"
+                                    (click)="selectTimeSlot(slot)">
+                                {{ slot }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Confirmation Button -->
+    <div class="flex justify-center">
+        <button
+                hlmBtn
+                [disabled]="!selectedDate || !selectedTimeSlot"
+                class="w-full max-w-md"
+                (click)="confirmAppointment()">
+            Confirm Appointment
+        </button>
+    </div>
+</div>
