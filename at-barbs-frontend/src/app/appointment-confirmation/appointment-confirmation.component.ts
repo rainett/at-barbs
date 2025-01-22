@@ -91,14 +91,14 @@ export class AppointmentConfirmationComponent implements OnInit {
             alert('Please select a date and time slot.');
             return;
         }
-
+        const formattedDate = `${this.selectedDate.getFullYear()}-${(this.selectedDate.getMonth() + 1).toString().padStart(2, '0')}-${this.selectedDate.getDate().toString().padStart(2, '0')}`;
         const payload = {
             serviceId: this.selectedService.id,
             staffId: this.selectedStaff.id,
-            date: this.selectedDate,
+            date: formattedDate,
             timeSlot: this.selectedTimeSlot,
         };
-
+        console.log(formattedDate);
         this.axiosService.request('post', '/api/v1/appointments', payload).then(() => {
             this.router.navigate(['/my-appointments']);
         });
@@ -125,6 +125,5 @@ export class AppointmentConfirmationComponent implements OnInit {
         this.axiosService.request('get', url, null).then((response) => {
             this.availableTimeSlots = response.data.map((slot: any) => slot.time.slice(0, 5));
         });
-        console.log(this.availableTimeSlots);
     }
 }
