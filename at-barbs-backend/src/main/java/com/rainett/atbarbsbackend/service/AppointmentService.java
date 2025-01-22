@@ -81,6 +81,7 @@ public class AppointmentService {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new AppException("Customer not found", HttpStatus.NOT_FOUND));
         LocalDateTime appointmentTime = LocalDateTime.of(request.getDate(), request.getTimeSlot());
+        validateStaffAvailability(staff, appointmentTime);
         Appointment appointment = new Appointment();
         appointment.setCustomer(customer);
         appointment.setStaff(staff);
@@ -88,6 +89,15 @@ public class AppointmentService {
         appointment.setAppointmentTime(appointmentTime);
         appointment.setStatus(AppointmentStatus.BOOKED);
         appointmentRepository.save(appointment);
+    }
+
+    private void validateStaffAvailability(Staff staff, LocalDateTime appointmentTime) {
+        List<LocalDateTime> bookedHoursByStaffAndDate =
+                appointmentRepository.findBookedHoursByStaffAndDate(staff.getId(),
+                        appointmentTime.toLocalDate(), AppointmentStatus.BOOKED);
+        if (bookedHoursByStaffAndDate.contains(appointmentTime)) {
+            throw new AppException("Staff is not available at this time", HttpStatus.BAD_REQUEST);
+        }
     }
 
     public Page<AppointmentDto> getCustomerAppointments(Long userId, Pageable pageable) {
